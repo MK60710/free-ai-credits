@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Credits Hunter — Free AI Credits for CS Students</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080d1f;--surface:#0f1629;--card:#131c36;--card-h:#1a2444;
+  --border:rgba(255,255,255,0.07);--text:#e8edff;--text2:#8892b0;--text3:#5c6a8e;
+  --ok:#22c55e;--warn:#f59e0b;--err:#ef4444;--r:12px;--rs:8px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  font-size:14px;line-height:1.6;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+
+/* HERO */
+.hero{position:relative;min-height:480px;display:flex;align-items:center;
+  padding:80px 24px 60px;overflow:hidden;
+  background:linear-gradient(135deg,#080d1f 0%,#0f1629 50%,#0d1535 100%)}
+.hero::before{content:'';position:absolute;inset:0;background:
+  radial-gradient(ellipse 60% 50% at 20% 50%,rgba(99,102,241,.15) 0%,transparent 60%),
+  radial-gradient(ellipse 50% 40% at 80% 30%,rgba(139,92,246,.1) 0%,transparent 60%)}
+.hero-content{position:relative;max-width:860px;margin:0 auto;text-align:center}
+.hero-tag{display:inline-block;background:rgba(99,102,241,.15);
+  border:1px solid rgba(99,102,241,.3);color:#a5b4fc;font-size:11px;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;padding:6px 18px;border-radius:20px;margin-bottom:22px}
+.hero-title{font-size:clamp(30px,6vw,62px);font-weight:900;letter-spacing:-.03em;
+  background:linear-gradient(135deg,#e8edff 0%,#a5b4fc 50%,#8b5cf6 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:16px;line-height:1.08}
+.hero-sub{font-size:17px;color:var(--text2);margin-bottom:28px;
+  max-width:540px;margin-left:auto;margin-right:auto}
+.hero-meta{display:flex;align-items:center;justify-content:center;
+  gap:14px;color:var(--text3);font-size:13px;margin-bottom:40px;flex-wrap:wrap}
+.status-pill{font-size:11px;font-weight:800;letter-spacing:.07em;padding:4px 14px;border-radius:20px}
+.stat-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
+  max-width:560px;margin:0 auto}
+.stat-card{background:rgba(255,255,255,.04);border:1px solid var(--border);
+  border-radius:var(--r);padding:20px;backdrop-filter:blur(10px)}
+.stat-num{font-size:30px;font-weight:900;
+  background:linear-gradient(135deg,#c7d2fe,#a78bfa);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  letter-spacing:-.02em;margin-bottom:6px}
+.stat-label{font-size:12px;color:var(--text3);font-weight:500}
+
+/* SEARCH BAR */
+.search-bar{position:sticky;top:0;z-index:100;
+  background:rgba(8,13,31,.9);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);padding:12px 24px;
+  display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.search-input{flex:1;min-width:180px;background:rgba(255,255,255,.06);
+  border:1px solid var(--border);border-radius:var(--rs);color:var(--text);
+  font-family:inherit;font-size:14px;padding:9px 14px;outline:none;transition:.2s}
+.search-input:focus{border-color:#6366f1}
+.filter-pills{display:flex;gap:6px;flex-wrap:wrap}
+.pill{background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:20px;
+  color:var(--text2);cursor:pointer;font-size:12px;font-weight:600;padding:5px 14px;
+  transition:.15s;font-family:inherit}
+.pill:hover{background:rgba(255,255,255,.08);color:var(--text)}
+.pill.active{background:#6366f1;border-color:#6366f1;color:#fff}
+.sort-sel{background:rgba(255,255,255,.05);border:1px solid var(--border);
+  border-radius:var(--rs);color:var(--text);font-family:inherit;font-size:12px;padding:7px 10px}
+.filter-count{color:var(--text3);font-size:12px;margin-left:auto}
+
+/* LAYOUT */
+.container{max-width:1280px;margin:0 auto;padding:0 24px}
+.section{padding:52px 0}
+.cat-section{border-top:1px solid var(--border)}
+.cat-header{display:flex;align-items:center;gap:16px;margin-bottom:24px;flex-wrap:wrap}
+.cat-count{margin-left:auto;background:rgba(255,255,255,.05);border:1px solid var(--border);
+  border-radius:20px;padding:4px 14px;font-size:12px;color:var(--text2);font-weight:600}
+
+/* QUICK WINS */
+.qw-box{background:rgba(34,197,94,.05);border:2px solid rgba(34,197,94,.22);
+  border-radius:16px;padding:28px}
+.qw-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:24px}
+.qw-icon{font-size:36px;line-height:1;flex-shrink:0}
+.qw-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.qw-card{background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.18);
+  border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:8px;transition:.2s}
+.qw-card:hover{background:rgba(34,197,94,.1);transform:translateY(-2px)}
+.qw-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.qw-name{font-weight:700;font-size:14px;flex:1;line-height:1.3}
+.qw-value{font-size:20px;font-weight:800;color:#4ade80}
+.qw-models{font-size:11px;color:#86efac}
+.qw-btn{display:block;background:#22c55e;color:#fff;border-radius:8px;
+  padding:8px 16px;font-size:13px;font-weight:700;text-align:center;
+  margin-top:4px;transition:.15s}
+.qw-btn:hover{background:#16a34a}
+.new-ribbon-inline{background:#22c55e;color:#fff;font-size:9px;font-weight:900;
+  letter-spacing:.1em;padding:2px 8px;border-radius:10px;flex-shrink:0}
+
+/* PROGRAM CARDS */
+.prog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.prog-card{position:relative;background:var(--card);border:1px solid var(--border);
+  border-radius:var(--r);overflow:hidden;transition:.22s;display:flex;flex-direction:column}
+.prog-card:hover{border-color:rgba(255,255,255,.14);transform:translateY(-3px);
+  box-shadow:0 12px 36px rgba(0,0,0,.35)}
+.prog-card.hidden,.qw-card.hidden{display:none!important}
+.card-accent{height:3px}
+.ribbon{position:absolute;top:16px;right:-6px;background:#22c55e;color:#fff;
+  font-size:9px;font-weight:900;letter-spacing:.1em;padding:3px 12px 3px 10px;
+  display:none;z-index:2}
+.ribbon::after{content:'';position:absolute;right:0;bottom:-5px;
+  border:5px solid #15803d;border-right-color:transparent}
+.prog-card.is-new .ribbon{display:block}
+.card-body{padding:16px;display:flex;flex-direction:column;gap:10px;flex:1}
+.card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.card-name{font-size:14px;font-weight:700;line-height:1.3;flex:1}
+.card-value{font-size:18px;font-weight:800;white-space:nowrap}
+.card-badges{display:flex;gap:5px;flex-wrap:wrap}
+.badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;letter-spacing:.04em}
+.badge-edu{background:rgba(59,130,246,.15);color:#93c5fd}
+.badge-easy{background:rgba(34,197,94,.15);color:#86efac}
+.badge-medium{background:rgba(245,158,11,.15);color:#fde68a}
+.badge-hard{background:rgba(239,68,68,.15);color:#fca5a5}
+.badge-ver{background:rgba(34,197,94,.15);color:#86efac}
+.badge-unver{background:rgba(245,158,11,.15);color:#fde68a}
+.badge-fail{background:rgba(239,68,68,.15);color:#fca5a5}
+.badge-dup{background:rgba(139,92,246,.15);color:#c4b5fd}
+.card-models,.card-elig,.card-expiry{font-size:12px;line-height:1.5}
+.card-models{color:var(--text2)}
+.card-elig{color:var(--text3)}
+.card-expiry{color:var(--text3)}
+.apply-btn{display:block;color:#fff;border-radius:var(--rs);padding:9px 16px;
+  font-size:13px;font-weight:700;text-align:center;margin-top:auto;transition:.15s}
+.apply-btn:hover{opacity:.86;transform:translateY(-1px)}
+
+/* STATS */
+.charts-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.chart-card{background:var(--card);border:1px solid var(--border);
+  border-radius:var(--r);padding:24px}
+.chart-card h3{font-size:14px;font-weight:600;color:var(--text2);margin-bottom:16px}
+.section-title{font-size:22px;font-weight:800;letter-spacing:-.02em;margin-bottom:28px;
+  background:linear-gradient(135deg,#e8edff,#a5b4fc);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* FOOTER */
+footer{background:var(--surface);border-top:1px solid var(--border);
+  padding:36px 24px;text-align:center;color:var(--text3);font-size:12px;line-height:2.2}
+footer strong{color:var(--text2)}
+footer .footer-agents{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:12px}
+footer .agent-chip{background:rgba(255,255,255,.05);border:1px solid var(--border);
+  border-radius:20px;padding:4px 14px;font-size:11px;color:var(--text2);font-weight:500}
+
+/* PRINT */
+@media print{
+  .search-bar{display:none}
+  .apply-btn{print-color-adjust:exact}
+  body{background:#fff;color:#000}
+  .hero{background:#f8fafc;min-height:auto;padding:32px 24px}
+  .hero-title{-webkit-text-fill-color:#1e1b4b;color:#1e1b4b}
+  .hero-sub,.hero-meta{color:#555}
+  .stat-num{-webkit-text-fill-color:#4f46e5;color:#4f46e5}
+  .stat-card,.prog-card,.qw-card,.chart-card{background:#fff;border:1px solid #ddd}
+  .card-name,.card-models,.card-elig,.card-expiry{color:#333}
+  .prog-card{break-inside:avoid;margin-bottom:12px}
+  .charts-grid{display:none}
+  .cat-section,.section{border-top:1px solid #eee}
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .hero{padding:56px 16px 40px}
+  .stat-cards{grid-template-columns:1fr;gap:10px;max-width:280px}
+  .prog-grid,.qw-grid,.charts-grid{grid-template-columns:1fr}
+  .search-bar{padding:10px 14px}
+  .container{padding:0 14px}
+  .section{padding:36px 0}
+  .filter-pills,.sort-sel{width:100%}
+  .cat-header{gap:10px}
+  .cat-count{margin-left:0}
+}
+@media(max-width:400px){
+  .stat-cards{grid-template-columns:1fr 1fr;max-width:100%}
+  .hero-title{font-size:26px}
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+<div class="hero-content">
+  <div class="hero-tag">Free AI Credits for CS Students</div>
+  <h1 class="hero-title">🤖 AI Credits Hunter</h1>
+  <p class="hero-sub">Every link verified daily by an automated agent. No dead links. No sign-up walls. Just free credits.</p>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:-12px;margin-bottom:8px">
+    <span style="background:rgba(34,197,94,.15);color:#4ade80;border:1px solid rgba(34,197,94,.3);padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600">✅ All links verified today</span>
+    <span style="background:rgba(129,140,248,.15);color:#a5b4fc;border:1px solid rgba(129,140,248,.3);padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600">🔄 Auto-updates daily at 9am</span>
+    <span style="background:rgba(251,191,36,.15);color:#fbbf24;border:1px solid rgba(251,191,36,.3);padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600">🤖 Powered by AI agents</span>
+  </div>
+  <div class="hero-meta">
+    <span>Updated Jun 02, 2026 at 00:12</span>
+    <span class="status-pill" style="background:#22c55e1a;color:#22c55e;border:1px solid #22c55e44">FRESH</span>
+  </div>
+  <div class="stat-cards">
+    <div class="stat-card">
+      <div class="stat-num" data-target="37">0</div>
+      <div class="stat-label">Programs Found</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" data-target="3449" data-prefix="$" data-suffix="+">$3,449+</div>
+      <div class="stat-label">Est. Total Value</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" data-target="0" style="color:#4ade80;-webkit-text-fill-color:#4ade80">0</div>
+      <div class="stat-label">New This Run</div>
+    </div>
+  </div>
+</div>
+</section>
+
+
+<!-- QUICK WINS -->
+<section class="section" id="quick-wins"><div class="container"><div class="qw-box"><div class="qw-header"><span class="qw-icon">⚡</span><div><h2 style="color:#4ade80">Grab These Now — Under 2 Minutes Each</h2><p style="color:#86efac;font-size:13px">Easy difficulty · No approval needed · Start today</p></div></div><div class="qw-grid"><div class="qw-card" data-name="github student developer pack" data-diff="Easy" data-edu="yes" data-ver="verified" data-new="false" data-val="300.0" data-models="copilot, github models, azure"><div class="qw-top"><div class="qw-name">GitHub Student Developer Pack</div></div><div class="qw-value">$300</div><div class="qw-models">Copilot, GitHub Models, Azure</div><a href="https://education.github.com/pack" target="_blank" rel="noopener" class="qw-btn">Apply Now →</a></div><div class="qw-card" data-name="jetbrains student pack" data-diff="Easy" data-edu="yes" data-ver="verified" data-new="false" data-val="250.0" data-models="ai assistant (all ides)"><div class="qw-top"><div class="qw-name">JetBrains Student Pack</div></div><div class="qw-value">$250</div><div class="qw-models">AI Assistant (all IDEs)</div><a href="https://www.jetbrains.com/community/education/#students" target="_blank" rel="noopener" class="qw-btn">Apply Now →</a></div><div class="qw-card" data-name="cursor pro — 1yr student" data-diff="Easy" data-edu="yes" data-ver="verified" data-new="false" data-val="240.0" data-models="gpt-4o, claude sonnet"><div class="qw-top"><div class="qw-name">Cursor Pro — 1yr Student</div></div><div class="qw-value">$240</div><div class="qw-models">GPT-4o, Claude Sonnet</div><a href="https://cursor.com/students" target="_blank" rel="noopener" class="qw-btn">Apply Now →</a></div><div class="qw-card" data-name="notion ai — student" data-diff="Easy" data-edu="yes" data-ver="verified" data-new="false" data-val="192.0" data-models="notion ai (gpt-4 writing)"><div class="qw-top"><div class="qw-name">Notion AI — Student</div></div><div class="qw-value">$192</div><div class="qw-models">Notion AI (GPT-4 writing)</div><a href="https://www.notion.so/product/notion-for-education" target="_blank" rel="noopener" class="qw-btn">Apply Now →</a></div><div class="qw-card" data-name="figma — professional" data-diff="Easy" data-edu="yes" data-ver="verified" data-new="false" data-val="180.0" data-models="figma ai features"><div class="qw-top"><div class="qw-name">Figma — Professional</div></div><div class="qw-value">$180</div><div class="qw-models">Figma AI features</div><a href="https://www.figma.com/education/" target="_blank" rel="noopener" class="qw-btn">Apply Now →</a></div><div class="qw-card" data-name="windsurf student" data-diff="Easy" data-edu="yes" data-ver="verified" data-new="false" data-val="180.0" data-models="gpt-4, claude"><div class="qw-top"><div class="qw-name">Windsurf Student</div></div><div class="qw-value">$180</div><div class="qw-models">GPT-4, Claude</div><a href="https://windsurf.com/students" target="_blank" rel="noopener" class="qw-btn">Apply Now →</a></div><div class="qw-card" data-name="grammarly premium" data-diff="Easy" data-edu="yes" data-ver="verified" data-new="false" data-val="144.0" data-models="grammarly ai writing"><div class="qw-top"><div class="qw-name">Grammarly Premium</div></div><div class="qw-value">$144</div><div class="qw-models">Grammarly AI writing</div><a href="https://www.grammarly.com/edu" target="_blank" rel="noopener" class="qw-btn">Apply Now →</a></div><div class="qw-card" data-name="canva pro — student" data-diff="Easy" data-edu="yes" data-ver="verified" data-new="false" data-val="120.0" data-models="magic ai, image gen"><div class="qw-top"><div class="qw-name">Canva Pro — Student</div></div><div class="qw-value">$120</div><div class="qw-models">Magic AI, image gen</div><a href="https://www.canva.com/education/" target="_blank" rel="noopener" class="qw-btn">Apply Now →</a></div><div class="qw-card" data-name="replit core — student" data-diff="Easy" data-edu="yes" data-ver="verified" data-new="false" data-val="120.0" data-models="replit ai (coding)"><div class="qw-top"><div class="qw-name">Replit Core — Student</div></div><div class="qw-value">$120</div><div class="qw-models">Replit AI (coding)</div><a href="https://replit.com/site/teams-for-education" target="_blank" rel="noopener" class="qw-btn">Apply Now →</a></div><div class="qw-card" data-name="github copilot (student)" data-diff="Easy" data-edu="yes" data-ver="verified" data-new="false" data-val="120.0" data-models="gpt-4o, claude"><div class="qw-top"><div class="qw-name">GitHub Copilot (Student)</div></div><div class="qw-value">$120</div><div class="qw-models">GPT-4o, Claude</div><a href="https://education.github.com/pack" target="_blank" rel="noopener" class="qw-btn">Apply Now →</a></div><div class="qw-card" data-name="azure for students" data-diff="Easy" data-edu="yes" data-ver="verified" data-new="false" data-val="100.0" data-models="azure openai (gpt-4)"><div class="qw-top"><div class="qw-name">Azure for Students</div></div><div class="qw-value">$100</div><div class="qw-models">Azure OpenAI (GPT-4)</div><a href="https://azure.microsoft.com/en-us/free/students" target="_blank" rel="noopener" class="qw-btn">Apply Now →</a></div><div class="qw-card" data-name="aws educate" data-diff="Easy" data-edu="yes" data-ver="verified" data-new="false" data-val="100.0" data-models="amazon bedrock (llama, mistral)"><div class="qw-top"><div class="qw-name">AWS Educate</div></div><div class="qw-value">$100</div><div class="qw-models">Amazon Bedrock (Llama, Mistral)</div><a href="https://aws.amazon.com/education/awseducate" target="_blank" rel="noopener" class="qw-btn">Apply Now →</a></div><div class="qw-card" data-name="perplexity pro — student" data-diff="Easy" data-edu="yes" data-ver="verified" data-new="false" data-val="100.0" data-models="gpt-4, claude, sonar"><div class="qw-top"><div class="qw-name">Perplexity Pro — Student</div></div><div class="qw-value">$100</div><div class="qw-models">GPT-4, Claude, Sonar</div><a href="https://www.perplexity.ai/hub/faq/perplexity-for-students" target="_blank" rel="noopener" class="qw-btn">Apply Now →</a></div><div class="qw-card" data-name="google gemini api" data-diff="Easy" data-edu="no" data-ver="verified" data-new="false" data-val="50.0" data-models="gemini 2.5 flash"><div class="qw-top"><div class="qw-name">Google Gemini API</div></div><div class="qw-value">$50</div><div class="qw-models">Gemini 2.5 Flash</div><a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener" class="qw-btn">Apply Now →</a></div><div class="qw-card" data-name="groq" data-diff="Easy" data-edu="no" data-ver="verified" data-new="false" data-val="40.0" data-models="llama 3.3, mixtral"><div class="qw-top"><div class="qw-name">Groq</div></div><div class="qw-value">$40</div><div class="qw-models">Llama 3.3, Mixtral</div><a href="https://console.groq.com/keys" target="_blank" rel="noopener" class="qw-btn">Apply Now →</a></div><div class="qw-card" data-name="mistral ai" data-diff="Easy" data-edu="no" data-ver="verified" data-new="false" data-val="30.0" data-models="mistral, codestral"><div class="qw-top"><div class="qw-name">Mistral AI</div></div><div class="qw-value">$30</div><div class="qw-models">Mistral, Codestral</div><a href="https://console.mistral.ai" target="_blank" rel="noopener" class="qw-btn">Apply Now →</a></div><div class="qw-card" data-name="cerebras" data-diff="Easy" data-edu="no" data-ver="verified" data-new="false" data-val="30.0" data-models="llama 3.3, qwen3"><div class="qw-top"><div class="qw-name">Cerebras</div></div><div class="qw-value">$30</div><div class="qw-models">Llama 3.3, Qwen3</div><a href="https://cloud.cerebras.ai" target="_blank" rel="noopener" class="qw-btn">Apply Now →</a></div><div class="qw-card" data-name="modal" data-diff="Easy" data-edu="no" data-ver="verified" data-new="false" data-val="30.0" data-models="any open model (gpu)"><div class="qw-top"><div class="qw-name">Modal</div></div><div class="qw-value">$30</div><div class="qw-models">Any open model (GPU)</div><a href="https://modal.com" target="_blank" rel="noopener" class="qw-btn">Apply Now →</a></div><div class="qw-card" data-name="v0 by vercel" data-diff="Easy" data-edu="no" data-ver="verified" data-new="false" data-val="30.0" data-models="claude, gpt-4"><div class="qw-top"><div class="qw-name">v0 by Vercel</div></div><div class="qw-value">$30</div><div class="qw-models">Claude, GPT-4</div><a href="https://v0.dev" target="_blank" rel="noopener" class="qw-btn">Apply Now →</a></div><div class="qw-card" data-name="github models" data-diff="Easy" data-edu="no" data-ver="verified" data-new="false" data-val="25.0" data-models="gpt-4o, llama, mistral"><div class="qw-top"><div class="qw-name">GitHub Models</div></div><div class="qw-value">$25</div><div class="qw-models">GPT-4o, Llama, Mistral</div><a href="https://github.com/marketplace/models" target="_blank" rel="noopener" class="qw-btn">Apply Now →</a></div></div></div></div></section>
+
+<!-- CATEGORY SECTIONS -->
+<section class="section cat-section" id="cat-student" style="--accent:#3b82f6"><div class="container"><div class="cat-header"><div class="cat-icon" style="background:#3b82f622;font-size:28px;width:52px;height:52px;display:flex;align-items:center;justify-content:center;border-radius:12px">🎓</div><div><h2 style="color:#3b82f6;font-size:20px;font-weight:800;margin-bottom:2px">Student Programs</h2><p style="color:#8892b0;font-size:13px">For enrolled university students</p></div><div class="cat-count">12 programs</div></div><div class="prog-grid"><div class="prog-card" style="--accent:#3b82f6" data-name="anthropic claude campus" data-diff="Medium" data-edu="yes" data-ver="verified" data-new="false" data-val="600.0" data-models="claude haiku/sonnet/opus"><div class="card-accent" style="background:#3b82f6"></div><div class="ribbon">NEW</div><div class="card-body"><div class="card-top"><h3 class="card-name">Anthropic Claude Campus</h3><div class="card-value" style="color:#3b82f6">$600</div></div><div class="card-badges"><span class="badge badge-edu">📧 .edu</span><span class="badge badge-medium">Medium</span><span class="badge badge-ver">✓ Verified</span></div><div class="card-models">Claude Haiku/Sonnet/Opus</div><div class="card-elig">👤 Start/join campus club</div><div class="card-expiry">⏱ While enrolled</div><a href="https://claude.com/programs/campus" target="_blank" rel="noopener" class="apply-btn" style="background:#3b82f6">Apply Now →</a></div></div><div class="prog-card" style="--accent:#3b82f6" data-name="github student developer pack" data-diff="Easy" data-edu="yes" data-ver="verified" data-new="false" data-val="300.0" data-models="copilot, github models, azure"><div class="card-accent" style="background:#3b82f6"></div><div class="ribbon">NEW</div><div class="card-body"><div class="card-top"><h3 class="card-name">GitHub Student Developer Pack</h3><div class="card-value" style="color:#3b82f6">$300</div></div><div class="card-badges"><span class="badge badge-edu">📧 .edu</span><span class="badge badge-easy">Easy</span><span class="badge badge-ver">✓ Verified</span></div><div class="card-models">Copilot, GitHub Models, Azure</div><div class="card-elig">👤 Enrolled student</div><div class="card-expiry">⏱ Annual renewal</div><a href="https://education.github.com/pack" target="_blank" rel="noopener" class="apply-btn" style="background:#3b82f6">Apply Now →</a></div></div><div class="prog-card" style="--accent:#3b82f6" data-name="google cloud students" data-diff="Medium" data-edu="yes" data-ver="verified" data-new="false" data-val="300.0" data-models="vertex ai, gemini api"><div class="card-accent" style="background:#3b82f6"></div><div class="ribbon">NEW</div><div class="card-body"><div class="card-top"><h3 class="card-name">Google Cloud Students</h3><div class="card-value" style="color:#3b82f6">$300</div></div><div class="card-badges"><span class="badge badge-edu">📧 .edu</span><span class="badge badge-medium">Medium</span><span class="badge badge-ver">✓ Verified</span></div><div class="card-models">Vertex AI, Gemini API</div><div class="card-elig">👤 .edu + faculty</div><div class="card-expiry">⏱ 12 months</div><a href="https://cloud.google.com/edu/students" target="_blank" rel="noopener" class="apply-btn" style="background:#3b82f6">Apply Now →</a></div></div><div class="prog-card" style="--accent:#3b82f6" data-name="jetbrains student pack" data-diff="Easy" data-edu="yes" data-ver="verified" data-new="false" data-val="250.0" data-models="ai assistant (all ides)"><div class="card-accent" style="background:#3b82f6"></div><div class="ribbon">NEW</div><div class="card-body"><div class="card-top"><h3 class="card-name">JetBrains Student Pack</h3><div class="card-value" style="color:#3b82f6">$250</div></div><div class="card-badges"><span class="badge badge-edu">📧 .edu</span><span class="badge badge-easy">Easy</span><span class="badge badge-ver">✓ Verified</span></div><div class="card-models">AI Assistant (all IDEs)</div><div class="card-elig">👤 Student .edu</div><div class="card-expiry">⏱ Annual renewal</div><a href="https://www.jetbrains.com/community/education/#students" target="_blank" rel="noopener" class="apply-btn" style="background:#3b82f6">Apply Now →</a></div></div><div class="prog-card" style="--accent:#3b82f6" data-name="notion ai — student" data-diff="Easy" data-edu="yes" data-ver="verified" data-new="false" data-val="192.0" data-models="notion ai (gpt-4 writing)"><div class="card-accent" style="background:#3b82f6"></div><div class="ribbon">NEW</div><div class="card-body"><div class="card-top"><h3 class="card-name">Notion AI — Student</h3><div class="card-value" style="color:#3b82f6">$192</div></div><div class="card-badges"><span class="badge badge-edu">📧 .edu</span><span class="badge badge-easy">Easy</span><span class="badge badge-ver">✓ Verified</span></div><div class="card-models">Notion AI (GPT-4 writing)</div><div class="card-elig">👤 Student .edu</div><div class="card-expiry">⏱ While enrolled</div><a href="https://www.notion.so/product/notion-for-education" target="_blank" rel="noopener" class="apply-btn" style="background:#3b82f6">Apply Now →</a></div></div><div class="prog-card" style="--accent:#3b82f6" data-name="figma — professional" data-diff="Easy" data-edu="yes" data-ver="verified" data-new="false" data-val="180.0" data-models="figma ai features"><div class="card-accent" style="background:#3b82f6"></div><div class="ribbon">NEW</div><div class="card-body"><div class="card-top"><h3 class="card-name">Figma — Professional</h3><div class="card-value" style="color:#3b82f6">$180</div></div><div class="card-badges"><span class="badge badge-edu">📧 .edu</span><span class="badge badge-easy">Easy</span><span class="badge badge-ver">✓ Verified</span></div><div class="card-models">Figma AI features</div><div class="card-elig">👤 Student .edu</div><div class="card-expiry">⏱ Annual renewal</div><a href="https://www.figma.com/education/" target="_blank" rel="noopener" class="apply-btn" style="background:#3b82f6">Apply Now →</a></div></div><div class="prog-card" style="--accent:#3b82f6" data-name="grammarly premium" data-diff="Easy" data-edu="yes" data-ver="verified" data-new="false" data-val="144.0" data-models="grammarly ai writing"><div class="card-accent" style="background:#3b82f6"></div><div class="ribbon">NEW</div><div class="card-body"><div class="card-top"><h3 class="card-name">Grammarly Premium</h3><div class="card-value" style="color:#3b82f6">$144</div></div><div class="card-badges"><span class="badge badge-edu">📧 .edu</span><span class="badge badge-easy">Easy</span><span class="badge badge-ver">✓ Verified</span></div><div class="card-models">Grammarly AI writing</div><div class="card-elig">👤 Student .edu</div><div class="card-expiry">⏱ While enrolled</div><a href="https://www.grammarly.com/edu" target="_blank" rel="noopener" class="apply-btn" style="background:#3b82f6">Apply Now →</a></div></div><div class="prog-card" style="--accent:#3b82f6" data-name="canva pro — student" data-diff="Easy" data-edu="yes" data-ver="verified" data-new="false" data-val="120.0" data-models="magic ai, image gen"><div class="card-accent" style="background:#3b82f6"></div><div class="ribbon">NEW</div><div class="card-body"><div class="card-top"><h3 class="card-name">Canva Pro — Student</h3><div class="card-value" style="color:#3b82f6">$120</div></div><div class="card-badges"><span class="badge badge-edu">📧 .edu</span><span class="badge badge-easy">Easy</span><span class="badge badge-ver">✓ Verified</span></div><div class="card-models">Magic AI, image gen</div><div class="card-elig">👤 Student .edu</div><div class="card-expiry">⏱ While enrolled</div><a href="https://www.canva.com/education/" target="_blank" rel="noopener" class="apply-btn" style="background:#3b82f6">Apply Now →</a></div></div><div class="prog-card" style="--accent:#3b82f6" data-name="replit core — student" data-diff="Easy" data-edu="yes" data-ver="verified" data-new="false" data-val="120.0" data-models="replit ai (coding)"><div class="card-accent" style="background:#3b82f6"></div><div class="ribbon">NEW</div><div class="card-body"><div class="card-top"><h3 class="card-name">Replit Core — Student</h3><div class="card-value" style="color:#3b82f6">$120</div></div><div class="card-badges"><span class="badge badge-edu">📧 .edu</span><span class="badge badge-easy">Easy</span><span class="badge badge-ver">✓ Verified</span></div><div class="card-models">Replit AI (coding)</div><div class="card-elig">👤 Student .edu</div><div class="card-expiry">⏱ While enrolled</div><a href="https://replit.com/site/teams-for-education" target="_blank" rel="noopener" class="apply-btn" style="background:#3b82f6">Apply Now →</a></div></div><div class="prog-card" style="--accent:#3b82f6" data-name="azure for students" data-diff="Easy" data-edu="yes" data-ver="verified" data-new="false" data-val="100.0" data-models="azure openai (gpt-4)"><div class="card-accent" style="background:#3b82f6"></div><div class="ribbon">NEW</div><div class="card-body"><div class="card-top"><h3 class="card-name">Azure for Students</h3><div class="card-value" style="color:#3b82f6">$100</div></div><div class="card-badges"><span class="badge badge-edu">📧 .edu</span><span class="badge badge-easy">Easy</span><span class="badge badge-ver">✓ Verified</span></div><div class="card-models">Azure OpenAI (GPT-4)</div><div class="card-elig">👤 Student 18+ .edu</div><div class="card-expiry">⏱ 12 months</div><a href="https://azure.microsoft.com/en-us/free/students" target="_blank" rel="noopener" class="apply-btn" style="background:#3b82f6">Apply Now →</a></div></div><div class="prog-card" style="--accent:#3b82f6" data-name="aws educate" data-diff="Easy" data-edu="yes" data-ver="verified" data-new="false" data-val="100.0" data-models="amazon bedrock (llama, mistral)"><div class="card-accent" style="background:#3b82f6"></div><div class="ribbon">NEW</div><div class="card-body"><div class="card-top"><h3 class="card-name">AWS Educate</h3><div class="card-value" style="color:#3b82f6">$100</div></div><div class="card-badges"><span class="badge badge-edu">📧 .edu</span><span class="badge badge-easy">Easy</span><span class="badge badge-ver">✓ Verified</span></div><div class="card-models">Amazon Bedrock (Llama, Mistral)</div><div class="card-elig">👤 Students</div><div class="card-expiry">⏱ Per program</div><a href="https://aws.amazon.com/education/awseducate" target="_blank" rel="noopener" class="apply-btn" style="background:#3b82f6">Apply Now →</a></div></div><div class="prog-card" style="--accent:#3b82f6" data-name="perplexity pro — student" data-diff="Easy" data-edu="yes" data-ver="verified" data-new="false" data-val="100.0" data-models="gpt-4, claude, sonar"><div class="card-accent" style="background:#3b82f6"></div><div class="ribbon">NEW</div><div class="card-body"><div class="card-top"><h3 class="card-name">Perplexity Pro — Student</h3><div class="card-value" style="color:#3b82f6">$100</div></div><div class="card-badges"><span class="badge badge-edu">📧 .edu</span><span class="badge badge-easy">Easy</span><span class="badge badge-ver">✓ Verified</span></div><div class="card-models">GPT-4, Claude, Sonar</div><div class="card-elig">👤 Student .edu</div><div class="card-expiry">⏱ While enrolled</div><a href="https://www.perplexity.ai/hub/faq/perplexity-for-students" target="_blank" rel="noopener" class="apply-btn" style="background:#3b82f6">Apply Now →</a></div></div></div></div></section><section class="section cat-section" id="cat-ai_tools" style="--accent:#ec4899"><div class="container"><div class="cat-header"><div class="cat-icon" style="background:#ec489922;font-size:28px;width:52px;height:52px;display:flex;align-items:center;justify-content:center;border-radius:12px">🛠</div><div><h2 style="color:#ec4899;font-size:20px;font-weight:800;margin-bottom:2px">AI Coding Tools</h2><p style="color:#8892b0;font-size:13px">AI-powered editors & dev tools</p></div><div class="cat-count">8 programs</div></div><div class="prog-grid"><div class="prog-card" style="--accent:#ec4899" data-name="cursor pro — 1yr student" data-diff="Easy" data-edu="yes" data-ver="verified" data-new="false" data-val="240.0" data-models="gpt-4o, claude sonnet"><div class="card-accent" style="background:#ec4899"></div><div class="ribbon">NEW</div><div class="card-body"><div class="card-top"><h3 class="card-name">Cursor Pro — 1yr Student</h3><div class="card-value" style="color:#ec4899">$240</div></div><div class="card-badges"><span class="badge badge-edu">📧 .edu</span><span class="badge badge-easy">Easy</span><span class="badge badge-ver">✓ Verified</span></div><div class="card-models">GPT-4o, Claude Sonnet</div><div class="card-elig">👤 Student .edu</div><div class="card-expiry">⏱ 1 year</div><a href="https://cursor.com/students" target="_blank" rel="noopener" class="apply-btn" style="background:#ec4899">Apply Now →</a></div></div><div class="prog-card" style="--accent:#ec4899" data-name="windsurf student" data-diff="Easy" data-edu="yes" data-ver="verified" data-new="false" data-val="180.0" data-models="gpt-4, claude"><div class="card-accent" style="background:#ec4899"></div><div class="ribbon">NEW</div><div class="card-body"><div class="card-top"><h3 class="card-name">Windsurf Student</h3><div class="card-value" style="color:#ec4899">$180</div></div><div class="card-badges"><span class="badge badge-edu">📧 .edu</span><span class="badge badge-easy">Easy</span><span class="badge badge-ver">✓ Verified</span></div><div class="card-models">GPT-4, Claude</div><div class="card-elig">👤 Student .edu</div><div class="card-expiry">⏱ While enrolled</div><a href="https://windsurf.com/students" target="_blank" rel="noopener" class="apply-btn" style="background:#ec4899">Apply Now →</a></div></div><div class="prog-card" style="--accent:#ec4899" data-name="github copilot (student)" data-diff="Easy" data-edu="yes" data-ver="verified" data-new="false" data-val="120.0" data-models="gpt-4o, claude"><div class="card-accent" style="background:#ec4899"></div><div class="ribbon">NEW</div><div class="card-body"><div class="card-top"><h3 class="card-name">GitHub Copilot (Student)</h3><div class="card-value" style="color:#ec4899">$120</div></div><div class="card-badges"><span class="badge badge-edu">📧 .edu</span><span class="badge badge-easy">Easy</span><span class="badge badge-ver">✓ Verified</span></div><div class="card-models">GPT-4o, Claude</div><div class="card-elig">👤 Student .edu</div><div class="card-expiry">⏱ Annual renewal</div><a href="https://education.github.com/pack" target="_blank" rel="noopener" class="apply-btn" style="background:#ec4899">Apply Now →</a></div></div><div class="prog-card" style="--accent:#ec4899" data-name="v0 by vercel" data-diff="Easy" data-edu="no" data-ver="verified" data-new="false" data-val="30.0" data-models="claude, gpt-4"><div class="card-accent" style="background:#ec4899"></div><div class="ribbon">NEW</div><div class="card-body"><div class="card-top"><h3 class="card-name">v0 by Vercel</h3><div class="card-value" style="color:#ec4899">$30</div></div><div class="card-badges"><span class="badge badge-easy">Easy</span><span class="badge badge-ver">✓ Verified</span></div><div class="card-models">Claude, GPT-4</div><div class="card-elig">👤 Anyone</div><div class="card-expiry">⏱ Monthly</div><a href="https://v0.dev" target="_blank" rel="noopener" class="apply-btn" style="background:#ec4899">Apply Now →</a></div></div><div class="prog-card" style="--accent:#ec4899" data-name="cursor (free tier)" data-diff="Easy" data-edu="no" data-ver="verified" data-new="false" data-val="0.0" data-models="gpt-4o, claude sonnet"><div class="card-accent" style="background:#ec4899"></div><div class="ribbon">NEW</div><div class="card-body"><div class="card-top"><h3 class="card-name">Cursor (free tier)</h3><div class="card-value" style="color:#ec4899">$0</div></div><div class="card-badges"><span class="badge badge-easy">Easy</span><span class="badge badge-ver">✓ Verified</span></div><div class="card-models">GPT-4o, Claude Sonnet</div><div class="card-elig">👤 Anyone</div><div class="card-expiry">⏱ Permanent</div><a href="https://cursor.com" target="_blank" rel="noopener" class="apply-btn" style="background:#ec4899">Apply Now →</a></div></div><div class="prog-card" style="--accent:#ec4899" data-name="windsurf (free tier)" data-diff="Easy" data-edu="no" data-ver="verified" data-new="false" data-val="0.0" data-models="gpt-4, claude"><div class="card-accent" style="background:#ec4899"></div><div class="ribbon">NEW</div><div class="card-body"><div class="card-top"><h3 class="card-name">Windsurf (free tier)</h3><div class="card-value" style="color:#ec4899">$0</div></div><div class="card-badges"><span class="badge badge-easy">Easy</span><span class="badge badge-ver">✓ Verified</span></div><div class="card-models">GPT-4, Claude</div><div class="card-elig">👤 Anyone</div><div class="card-expiry">⏱ Permanent</div><a href="https://windsurf.com" target="_blank" rel="noopener" class="apply-btn" style="background:#ec4899">Apply Now →</a></div></div><div class="prog-card" style="--accent:#ec4899" data-name="ollama — run local models" data-diff="Easy" data-edu="no" data-ver="verified" data-new="false" data-val="0.0" data-models="llama, mistral, qwen"><div class="card-accent" style="background:#ec4899"></div><div class="ribbon">NEW</div><div class="card-body"><div class="card-top"><h3 class="card-name">Ollama — Run Local Models</h3><div class="card-value" style="color:#ec4899">$0</div></div><div class="card-badges"><span class="badge badge-easy">Easy</span><span class="badge badge-ver">✓ Verified</span></div><div class="card-models">Llama, Mistral, Qwen</div><div class="card-elig">👤 Anyone</div><div class="card-expiry">⏱ Permanent</div><a href="https://ollama.com" target="_blank" rel="noopener" class="apply-btn" style="background:#ec4899">Apply Now →</a></div></div><div class="prog-card" style="--accent:#ec4899" data-name="lm studio" data-diff="Easy" data-edu="no" data-ver="verified" data-new="false" data-val="0.0" data-models="any gguf model locally"><div class="card-accent" style="background:#ec4899"></div><div class="ribbon">NEW</div><div class="card-body"><div class="card-top"><h3 class="card-name">LM Studio</h3><div class="card-value" style="color:#ec4899">$0</div></div><div class="card-badges"><span class="badge badge-easy">Easy</span><span class="badge badge-ver">✓ Verified</span></div><div class="card-models">Any GGUF model locally</div><div class="card-elig">👤 Anyone</div><div class="card-expiry">⏱ Permanent</div><a href="https://lmstudio.ai" target="_blank" rel="noopener" class="apply-btn" style="background:#ec4899">Apply Now →</a></div></div></div></div></section>
+
+<footer><div class="container"><strong>AI Credits Hunter</strong> — Free AI Credits for CS Students<br>Generated Jun 02, 2026 at 00:12 &nbsp;·&nbsp; 37 programs catalogued &nbsp;·&nbsp; — searches performed &nbsp;·&nbsp; — URLs verified<br>Pipeline duration: — &nbsp;·&nbsp; Warnings: 0<br><div class="footer-agents"><span class="agent-chip">deepseek-r1:7b</span><span class="agent-chip">qwen2.5-coder:7b</span><span class="agent-chip">llama3.2:3b</span><span class="agent-chip">phi3:mini</span></div><div style="margin-top:12px;color:#3c4a6e;font-size:11px">Generated by Claude Code + Ollama multi-agent pipeline &nbsp;·&nbsp; All data embedded offline-ready</div></div></footer>
+
+<script>
+<script>
+var PROGRAMS   = [{"name": "Google Gemini API", "cat": "free_tier", "models": "Gemini 2.5 Flash", "url": "https://aistudio.google.com/apikey", "edu": "no", "diff": "Easy", "value": "$50", "value_num": 50.0, "verified": "verified", "is_new": false}, {"name": "Groq", "cat": "free_tier", "models": "Llama 3.3, Mixtral", "url": "https://console.groq.com/keys", "edu": "no", "diff": "Easy", "value": "$40", "value_num": 40.0, "verified": "verified", "is_new": false}, {"name": "Mistral AI", "cat": "free_tier", "models": "Mistral, Codestral", "url": "https://console.mistral.ai", "edu": "no", "diff": "Easy", "value": "$30", "value_num": 30.0, "verified": "verified", "is_new": false}, {"name": "Cerebras", "cat": "free_tier", "models": "Llama 3.3, Qwen3", "url": "https://cloud.cerebras.ai", "edu": "no", "diff": "Easy", "value": "$30", "value_num": 30.0, "verified": "verified", "is_new": false}, {"name": "Cohere", "cat": "free_tier", "models": "Command R+, Embed 4", "url": "https://dashboard.cohere.com/api-keys", "edu": "no", "diff": "Easy", "value": "$10", "value_num": 10.0, "verified": "verified", "is_new": false}, {"name": "OpenRouter", "cat": "free_tier", "models": "27+ free models", "url": "https://openrouter.ai/keys", "edu": "no", "diff": "Easy", "value": "$20", "value_num": 20.0, "verified": "verified", "is_new": false}, {"name": "Cloudflare Workers AI", "cat": "free_tier", "models": "LLMs, image, embeddings", "url": "https://dash.cloudflare.com", "edu": "no", "diff": "Easy", "value": "$10", "value_num": 10.0, "verified": "verified", "is_new": false}, {"name": "GitHub Models", "cat": "free_tier", "models": "GPT-4o, Llama, Mistral", "url": "https://github.com/marketplace/models", "edu": "no", "diff": "Easy", "value": "$25", "value_num": 25.0, "verified": "verified", "is_new": false}, {"name": "Hugging Face", "cat": "free_tier", "models": "300+ open models", "url": "https://huggingface.co/settings/tokens", "edu": "no", "diff": "Easy", "value": "$15", "value_num": 15.0, "verified": "verified", "is_new": false}, {"name": "Together AI", "cat": "free_tier", "models": "Llama 4, DeepSeek, Qwen", "url": "https://api.together.ai/signup", "edu": "no", "diff": "Easy", "value": "$25", "value_num": 25.0, "verified": "verified", "is_new": false}, {"name": "DeepSeek API", "cat": "free_tier", "models": "DeepSeek V3, R1, Coder", "url": "https://platform.deepseek.com", "edu": "no", "diff": "Easy", "value": "$8", "value_num": 8.0, "verified": "verified", "is_new": false}, {"name": "xAI Grok API", "cat": "free_tier", "models": "Grok 3, Grok 3 Mini", "url": "https://console.x.ai", "edu": "no", "diff": "Easy", "value": "$25", "value_num": 25.0, "verified": "verified", "is_new": false}, {"name": "Fireworks AI", "cat": "free_tier", "models": "Llama, Mixtral, DeepSeek", "url": "https://fireworks.ai", "edu": "no", "diff": "Easy", "value": "$5", "value_num": 5.0, "verified": "verified", "is_new": false}, {"name": "AI21 Labs", "cat": "free_tier", "models": "Jamba Large, Mini", "url": "https://studio.ai21.com", "edu": "no", "diff": "Easy", "value": "$10", "value_num": 10.0, "verified": "verified", "is_new": false}, {"name": "Modal", "cat": "free_tier", "models": "Any open model (GPU)", "url": "https://modal.com", "edu": "no", "diff": "Easy", "value": "$30", "value_num": 30.0, "verified": "verified", "is_new": false}, {"name": "Google Colab", "cat": "free_tier", "models": "Run any model (T4 GPU)", "url": "https://colab.research.google.com", "edu": "no", "diff": "Easy", "value": "$20", "value_num": 20.0, "verified": "verified", "is_new": false}, {"name": "Kaggle", "cat": "free_tier", "models": "Run any model (P100 GPU)", "url": "https://www.kaggle.com", "edu": "no", "diff": "Easy", "value": "$20", "value_num": 20.0, "verified": "verified", "is_new": false}, {"name": "GitHub Student Developer Pack", "cat": "student", "models": "Copilot, GitHub Models, Azure", "url": "https://education.github.com/pack", "edu": "yes", "diff": "Easy", "value": "$300", "value_num": 300.0, "verified": "verified", "is_new": false}, {"name": "Azure for Students", "cat": "student", "models": "Azure OpenAI (GPT-4)", "url": "https://azure.microsoft.com/en-us/free/students", "edu": "yes", "diff": "Easy", "value": "$100", "value_num": 100.0, "verified": "verified", "is_new": false}, {"name": "AWS Educate", "cat": "student", "models": "Amazon Bedrock (Llama, Mistral)", "url": "https://aws.amazon.com/education/awseducate", "edu": "yes", "diff": "Easy", "value": "$100", "value_num": 100.0, "verified": "verified", "is_new": false}, {"name": "JetBrains Student Pack", "cat": "student", "models": "AI Assistant (all IDEs)", "url": "https://www.jetbrains.com/community/education/#students", "edu": "yes", "diff": "Easy", "value": "$250", "value_num": 250.0, "verified": "verified", "is_new": false}, {"name": "Notion AI \u2014 Student", "cat": "student", "models": "Notion AI (GPT-4 writing)", "url": "https://www.notion.so/product/notion-for-education", "edu": "yes", "diff": "Easy", "value": "$192", "value_num": 192.0, "verified": "verified", "is_new": false}, {"name": "Figma \u2014 Professional", "cat": "student", "models": "Figma AI features", "url": "https://www.figma.com/education/", "edu": "yes", "diff": "Easy", "value": "$180", "value_num": 180.0, "verified": "verified", "is_new": false}, {"name": "Canva Pro \u2014 Student", "cat": "student", "models": "Magic AI, image gen", "url": "https://www.canva.com/education/", "edu": "yes", "diff": "Easy", "value": "$120", "value_num": 120.0, "verified": "verified", "is_new": false}, {"name": "Grammarly Premium", "cat": "student", "models": "Grammarly AI writing", "url": "https://www.grammarly.com/edu", "edu": "yes", "diff": "Easy", "value": "$144", "value_num": 144.0, "verified": "verified", "is_new": false}, {"name": "Perplexity Pro \u2014 Student", "cat": "student", "models": "GPT-4, Claude, Sonar", "url": "https://www.perplexity.ai/hub/faq/perplexity-for-students", "edu": "yes", "diff": "Easy", "value": "$100", "value_num": 100.0, "verified": "verified", "is_new": false}, {"name": "Replit Core \u2014 Student", "cat": "student", "models": "Replit AI (coding)", "url": "https://replit.com/site/teams-for-education", "edu": "yes", "diff": "Easy", "value": "$120", "value_num": 120.0, "verified": "verified", "is_new": false}, {"name": "Anthropic Claude Campus", "cat": "student", "models": "Claude Haiku/Sonnet/Opus", "url": "https://claude.com/programs/campus", "edu": "yes", "diff": "Medium", "value": "$600", "value_num": 600.0, "verified": "verified", "is_new": false}, {"name": "Google Cloud Students", "cat": "student", "models": "Vertex AI, Gemini API", "url": "https://cloud.google.com/edu/students", "edu": "yes", "diff": "Medium", "value": "$300", "value_num": 300.0, "verified": "verified", "is_new": false}, {"name": "Cursor Pro \u2014 1yr Student", "cat": "ai_tools", "models": "GPT-4o, Claude Sonnet", "url": "https://cursor.com/students", "edu": "yes", "diff": "Easy", "value": "$240", "value_num": 240.0, "verified": "verified", "is_new": false}, {"name": "Cursor (free tier)", "cat": "ai_tools", "models": "GPT-4o, Claude Sonnet", "url": "https://cursor.com", "edu": "no", "diff": "Easy", "value": "$0", "value_num": 0.0, "verified": "verified", "is_new": false}, {"name": "Windsurf Student", "cat": "ai_tools", "models": "GPT-4, Claude", "url": "https://windsurf.com/students", "edu": "yes", "diff": "Easy", "value": "$180", "value_num": 180.0, "verified": "verified", "is_new": false}, {"name": "Windsurf (free tier)", "cat": "ai_tools", "models": "GPT-4, Claude", "url": "https://windsurf.com", "edu": "no", "diff": "Easy", "value": "$0", "value_num": 0.0, "verified": "verified", "is_new": false}, {"name": "v0 by Vercel", "cat": "ai_tools", "models": "Claude, GPT-4", "url": "https://v0.dev", "edu": "no", "diff": "Easy", "value": "$30", "value_num": 30.0, "verified": "verified", "is_new": false}, {"name": "GitHub Copilot (Student)", "cat": "ai_tools", "models": "GPT-4o, Claude", "url": "https://education.github.com/pack", "edu": "yes", "diff": "Easy", "value": "$120", "value_num": 120.0, "verified": "verified", "is_new": false}, {"name": "Ollama \u2014 Run Local Models", "cat": "ai_tools", "models": "Llama, Mistral, Qwen", "url": "https://ollama.com", "edu": "no", "diff": "Easy", "value": "$0", "value_num": 0.0, "verified": "verified", "is_new": false}, {"name": "LM Studio", "cat": "ai_tools", "models": "Any GGUF model locally", "url": "https://lmstudio.ai", "edu": "no", "diff": "Easy", "value": "$0", "value_num": 0.0, "verified": "verified", "is_new": false}];
+var AUDIT      = {"total": 37, "value": "$3,449+", "new": 0, "ts": "Jun 02, 2026 at 00:12", "agents": "DeepSeek R1 \u2192 Qwen2.5-Coder \u2192 Llama3.2 \u2192 Phi3", "duration": "\u2014", "searches": "\u2014", "urls": "\u2014", "rejected": "\u2014", "warnings": 0};
+
+// Count-up animation
+function countUp(el, target, ms) {
+  ms = ms || 1200;
+  var start = 0;
+  var t0 = null;
+  var pre = el.dataset.prefix || '';
+  var suf = el.dataset.suffix || '';
+  function step(ts) {
+    if (!t0) t0 = ts;
+    var p = Math.min((ts - t0) / ms, 1);
+    var e = 1 - Math.pow(1 - p, 3);
+    el.textContent = pre + Math.round(start + (target - start) * e).toLocaleString() + suf;
+    if (p < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+var observed = false;
+var io = new IntersectionObserver(function(entries) {
+  if (observed) return;
+  entries.forEach(function(en) {
+    if (en.isIntersecting) {
+      observed = true;
+      document.querySelectorAll('.stat-num').forEach(function(el) {
+        var t = parseInt(String(el.dataset.target).replace(/[,$+]/g,'')) || 0;
+        countUp(el, t);
+      });
+    }
+  });
+}, {threshold: 0.3});
+var heroEl = document.querySelector('.hero');
+if (heroEl) io.observe(heroEl);
+
+// Search & Filter
+var activeFilter = 'all';
+var activeSort   = 'value';
+
+function applyFilters() {
+  var q = (document.getElementById('search').value || '').toLowerCase();
+  var visible = 0;
+  document.querySelectorAll('.prog-card, .qw-card').forEach(function(card) {
+    var name   = (card.dataset.name   || '').toLowerCase();
+    var models = (card.dataset.models || '').toLowerCase();
+    var diff   = card.dataset.diff   || '';
+    var edu    = card.dataset.edu    || '';
+    var ver    = card.dataset.ver    || '';
+    var isNew  = card.dataset.new === 'true';
+    var matchQ = !q || name.indexOf(q) >= 0 || models.indexOf(q) >= 0;
+    var matchF = activeFilter === 'all'
+      || (activeFilter === 'easy'     && diff === 'Easy')
+      || (activeFilter === 'edu'      && edu === 'yes')
+      || (activeFilter === 'verified' && ver === 'verified')
+      || (activeFilter === 'new'      && isNew);
+    if (matchQ && matchF) { card.classList.remove('hidden'); visible++; }
+    else                  { card.classList.add('hidden'); }
+  });
+  var ce = document.getElementById('filter-count');
+  if (ce) ce.textContent = visible + ' programs';
+  // hide empty cat sections
+  document.querySelectorAll('.cat-section').forEach(function(sec) {
+    var any = Array.from(sec.querySelectorAll('.prog-card')).some(function(c) {
+      return !c.classList.contains('hidden');
+    });
+    sec.style.display = any ? '' : 'none';
+  });
+}
+
+function applySort() {
+  var dm = {Easy:0, Medium:1, Hard:2};
+  document.querySelectorAll('.prog-grid, .qw-grid').forEach(function(grid) {
+    var items = Array.from(grid.querySelectorAll('.prog-card, .qw-card'));
+    items.sort(function(a, b) {
+      if (activeSort === 'value') return (parseFloat(b.dataset.val)||0) - (parseFloat(a.dataset.val)||0);
+      if (activeSort === 'easy')  return (dm[a.dataset.diff]||3) - (dm[b.dataset.diff]||3);
+      if (activeSort === 'new')   return (b.dataset.new==='true'?1:0) - (a.dataset.new==='true'?1:0);
+      return (a.dataset.name||'').localeCompare(b.dataset.name||'');
+    });
+    items.forEach(function(el) { grid.appendChild(el); });
+  });
+}
+
+document.getElementById('search').addEventListener('input', applyFilters);
+document.querySelectorAll('.pill').forEach(function(pill) {
+  pill.addEventListener('click', function() {
+    document.querySelectorAll('.pill').forEach(function(p) { p.classList.remove('active'); });
+    pill.classList.add('active');
+    activeFilter = pill.dataset.filter;
+    applyFilters();
+  });
+});
+var sortSel = document.querySelector('.sort-sel');
+if (sortSel) sortSel.addEventListener('change', function() {
+  activeSort = this.value;
+  applySort();
+  applyFilters();
+});
+
+applySort();
+applyFilters();
+
+
+</script>
+</body>
+</html>

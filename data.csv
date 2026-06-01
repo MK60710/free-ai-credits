@@ -1,0 +1,38 @@
+name,category,models_covered,credit_amount,eligibility,signup_url,edu_required,expiry,difficulty,estimated_value,verified
+Google Gemini API,free_tier,Gemini 2.5 Flash,Permanent free tier,Anyone,https://aistudio.google.com/apikey,no,Permanent,Easy,$50,verified
+Groq,free_tier,"Llama 3.3, Mixtral",Permanent free tier,Anyone,https://console.groq.com/keys,no,Permanent,Easy,$40,verified
+Mistral AI,free_tier,"Mistral, Codestral",1B tokens/month,Anyone,https://console.mistral.ai,no,Permanent,Easy,$30,verified
+Cerebras,free_tier,"Llama 3.3, Qwen3",1M tokens/day,Anyone,https://cloud.cerebras.ai,no,Permanent,Easy,$30,verified
+Cohere,free_tier,"Command R+, Embed 4","1,000 calls/month",Anyone,https://dashboard.cohere.com/api-keys,no,Permanent,Easy,$10,verified
+OpenRouter,free_tier,27+ free models,200 req/day free,Anyone,https://openrouter.ai/keys,no,Permanent,Easy,$20,verified
+Cloudflare Workers AI,free_tier,"LLMs, image, embeddings",10K neurons/day,Anyone,https://dash.cloudflare.com,no,Permanent,Easy,$10,verified
+GitHub Models,free_tier,"GPT-4o, Llama, Mistral",Free rate-limited,Anyone,https://github.com/marketplace/models,no,Permanent,Easy,$25,verified
+Hugging Face,free_tier,300+ open models,"1,000 calls/day",Anyone,https://huggingface.co/settings/tokens,no,Permanent,Easy,$15,verified
+Together AI,free_tier,"Llama 4, DeepSeek, Qwen",$25 signup credit,New users,https://api.together.ai/signup,no,30 days,Easy,$25,verified
+DeepSeek API,free_tier,"DeepSeek V3, R1, Coder",5M free tokens,New users,https://platform.deepseek.com,no,30 days,Easy,$8,verified
+xAI Grok API,free_tier,"Grok 3, Grok 3 Mini",$25 signup credit,New users,https://console.x.ai,no,Check console,Easy,$25,verified
+Fireworks AI,free_tier,"Llama, Mixtral, DeepSeek",Free tier + $1 credit,Anyone,https://fireworks.ai,no,Check console,Easy,$5,verified
+AI21 Labs,free_tier,"Jamba Large, Mini",$10 trial credit,New users,https://studio.ai21.com,no,3 months,Easy,$10,verified
+Modal,free_tier,Any open model (GPU),$30/month compute,Anyone,https://modal.com,no,Monthly,Easy,$30,verified
+Google Colab,free_tier,Run any model (T4 GPU),Free GPU hours,Anyone,https://colab.research.google.com,no,Daily reset,Easy,$20,verified
+Kaggle,free_tier,Run any model (P100 GPU),30h/week GPU free,Anyone,https://www.kaggle.com,no,Weekly,Easy,$20,verified
+GitHub Student Developer Pack,student,"Copilot, GitHub Models, Azure",Copilot free + $100 Azure,Enrolled student,https://education.github.com/pack,yes,Annual renewal,Easy,$300,verified
+Azure for Students,student,Azure OpenAI (GPT-4),"$100/year, no card",Student 18+ .edu,https://azure.microsoft.com/en-us/free/students,yes,12 months,Easy,$100,verified
+AWS Educate,student,"Amazon Bedrock (Llama, Mistral)",$35-$100 credits,Students,https://aws.amazon.com/education/awseducate,yes,Per program,Easy,$100,verified
+JetBrains Student Pack,student,AI Assistant (all IDEs),All IDEs free,Student .edu,https://www.jetbrains.com/community/education/#students,yes,Annual renewal,Easy,$250,verified
+Notion AI — Student,student,Notion AI (GPT-4 writing),Notion Plus + AI free,Student .edu,https://www.notion.so/product/notion-for-education,yes,While enrolled,Easy,$192,verified
+Figma — Professional,student,Figma AI features,Full Professional free,Student .edu,https://www.figma.com/education/,yes,Annual renewal,Easy,$180,verified
+Canva Pro — Student,student,"Magic AI, image gen",Canva Pro free,Student .edu,https://www.canva.com/education/,yes,While enrolled,Easy,$120,verified
+Grammarly Premium,student,Grammarly AI writing,Premium free,Student .edu,https://www.grammarly.com/edu,yes,While enrolled,Easy,$144,verified
+Perplexity Pro — Student,student,"GPT-4, Claude, Sonar",Discounted Pro + $5/mo API,Student .edu,https://www.perplexity.ai/hub/faq/perplexity-for-students,yes,While enrolled,Easy,$100,verified
+Replit Core — Student,student,Replit AI (coding),Replit Core free,Student .edu,https://replit.com/site/teams-for-education,yes,While enrolled,Easy,$120,verified
+Anthropic Claude Campus,student,Claude Haiku/Sonnet/Opus,$50/mo API + Claude Pro,Start/join campus club,https://claude.com/programs/campus,yes,While enrolled,Medium,$600,verified
+Google Cloud Students,student,"Vertex AI, Gemini API",$50-$300 GCP credits,.edu + faculty,https://cloud.google.com/edu/students,yes,12 months,Medium,$300,verified
+Cursor Pro — 1yr Student,ai_tools,"GPT-4o, Claude Sonnet",Full Pro FREE for 1 year,Student .edu,https://cursor.com/students,yes,1 year,Easy,$240,verified
+Cursor (free tier),ai_tools,"GPT-4o, Claude Sonnet",Free tier (2K completions),Anyone,https://cursor.com,no,Permanent,Easy,$0,verified
+Windsurf Student,ai_tools,"GPT-4, Claude",Free Pro while enrolled,Student .edu,https://windsurf.com/students,yes,While enrolled,Easy,$180,verified
+Windsurf (free tier),ai_tools,"GPT-4, Claude",Unlimited completions free,Anyone,https://windsurf.com,no,Permanent,Easy,$0,verified
+v0 by Vercel,ai_tools,"Claude, GPT-4",Free monthly credits,Anyone,https://v0.dev,no,Monthly,Easy,$30,verified
+GitHub Copilot (Student),ai_tools,"GPT-4o, Claude",Free while enrolled,Student .edu,https://education.github.com/pack,yes,Annual renewal,Easy,$120,verified
+Ollama — Run Local Models,ai_tools,"Llama, Mistral, Qwen",Unlimited — runs on your Mac,Anyone,https://ollama.com,no,Permanent,Easy,$0,verified
+LM Studio,ai_tools,Any GGUF model locally,Unlimited — runs on your Mac,Anyone,https://lmstudio.ai,no,Permanent,Easy,$0,verified
