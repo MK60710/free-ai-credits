@@ -1,12 +1,10 @@
 name,company,model,category,credit_amount,eligibility,signup_url,edu_required,expiry,difficulty,estimated_value,verified
-Anthropic — Claude Campus Program,Anthropic,Claude 4.6,student,API credits,Students with .edu email,https://www.anthropic.com/contact-sales/for-student-builders,yes,Permanent,Easy,$ unknown,verified
 Google — Google Cloud Free Tier,Google,Gemini 3.1,free_tier,$300 in free credits,Anyone with a free account,https://cloud.google.com/free,no,Permanent,Easy,$300,verified
 OpenAI — Free API Tier,OpenAI,GPT-5,free_tier,Free credits for new users,Anyone with a free account,https://platform.openai.com/,no,Permanent,Easy,$18/month (approximately 1M tokens),url_failed
 Meta — Meta Developer Center,Meta,Llama 4,free_tier,Not specified,Anyone with a free account,https://llama.developer.meta.com/api-keys/,no,Permanent,Easy,Not specified,verified
-Galileo AI — Free Tier,Galileo AI,Galileo Figaro,free_tier,"Not specified, but free access to API",Anyone with a free account,https://app.galileo.ai/,no,Permanent,Easy,Unknown,verified
+Galileo AI — Free Tier,Galileo AI,Galileo Figaro,free_tier,"Not specified, but free access to API",Anyone with a free account,https://app.galileo.ai/,no,Permanent,Easy,$15,verified
 Microsoft — Azure for Students,Microsoft,DeBERTa,student,$100 credit,Students with .edu email,https://azure.microsoft.com/en-us/free/students/,yes,Annual renewal,Easy,$100/year,url_failed
 GitHub Student Developer Pack,GitHub,Copilot + 100+ tools,student,GitHub Copilot free + $100 Azure credits,Students with .edu email,https://education.github.com/pack,yes,Annual renewal,Easy,$300,verified
-Azure for Students,Microsoft,GPT-4o via Azure OpenAI,student,$100 in free cloud compute credits,Students 18+ with .edu email,https://azure.microsoft.com/en-us/free/students,yes,12 months,Easy,$100,url_failed
 AWS Educate,Amazon,"Bedrock (Llama, Mistral)",student,$35–$100 in free AWS credits,Students with .edu email,https://aws.amazon.com/education/awseducate,yes,Per program,Easy,$100,verified
 JetBrains Student Pack,JetBrains,AI Assistant (all IDEs),student,All IDEs + AI Assistant free,Students with .edu email,https://www.jetbrains.com/community/education/#students,yes,Annual renewal,Easy,$250,verified
 Google Gemini API,Google,Gemini 2.5 Flash,free_tier,Permanent free tier — no card needed,Anyone,https://aistudio.google.com/apikey,no,Permanent,Easy,$50,verified
